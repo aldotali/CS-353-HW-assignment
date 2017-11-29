@@ -1,0 +1,48 @@
+<html>
+    <head>
+        WelCome Aldo
+        <style>
+        table
+        {
+            border-style:solid;
+            border-width:2px;
+            border-color:pink;
+        }
+        </style>
+    </head>
+    <body bgcolor="#EEFDEF">
+        <div>
+       <?php 
+            define('HOST_NAME','localhost');
+            define('DB_USERNAME','root');
+            define('DB_PASSWORD','');
+            define('DB_NAME','aldo_tali');
+
+    $connection=mysql_connect(HOST_NAME,DB_USERNAME,DB_PASSWORD) or die("There was a problem connecting to the database: ". mysql_error());
+    $db=mysql_select_db(DB_NAME,$connection) or die ("Cannot use the database :". mysql_error());
+    
+        session_start();
+
+        $queryLogin= mysql_query("SELECT * FROM company");
+        $queryResult = mysql_fetch_array($queryLogin) or die(mysql_error());
+        $size=mysql_numrows($queryResult);
+        $i=0;
+        while ($i < $size) {
+            $variable=mysql_result($queryLogin,$i,"cid");
+            $variable1=mysql_result($queryLogin,$i,"cname");
+            $variable2=mysql_result($queryLogin,$i,"quota");
+              echo "$variable";
+              echo "$variable1";
+              echo ."$variable2";
+              $i++;
+              echo "<table border='1'>
+                <tr>
+                <th>"$variable"</th>
+                <th>Lastname</th>
+                </tr>";
+            }
+?>
+
+        </div>
+</body>
+</html>
